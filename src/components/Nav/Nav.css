@@ -1,0 +1,27 @@
+.nav {
+  position: absolute;
+  top: 17px;
+  left: 40px;
+  background-color: transparent;
+}
+
+.nav__list {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+}
+
+.nav__item {
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.nav__link {
+  background-color: transparent;
+}
