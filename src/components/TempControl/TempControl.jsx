@@ -1,112 +1,70 @@
 import React, { useState } from "react";
-import "./TempControl.css";
+import './TempControl.css'
+import BaseForm from "../BaseForm/BaseForm";
 
 export default function TempControl() {
-  const [formData, setFormData] = useState({
-    room: "",
-    temperature: "",
-    observations: "",
-  });
-  const [submissions, setSubmissions] = useState([]);
+    const [submissions, setSubmissions] = useState([]);
 
-  const rooms = [
-    "Câmara de Resfriados",
-    "Câmara de Congelados",
-    "Sala da Industrialização",
-    "Rotulagem e Expedição",
-    "Desossa",
-    "Câmara de Carcaças",
-    "Câmara de Massas",
+  const formFields = [
+    {
+      name: "room",
+      label: "Selecione a câmara ou sala:",
+      type: "select",
+      required: true,
+      options: [
+        "Câmara de Resfriados",
+        "Câmara de Congelados",
+        "Sala da Industrialização",
+        "Rotulagem e Expedição",
+        "Desossa",
+        "Câmara de Carcaças",
+        "Câmara de Massas",
+      ].map((room) => ({ value: room, label: room })),
+    },
+    {
+      name: "temperature",
+      label: "Temperatura Atual:",
+      type: "number",
+      required: true,
+      placeholder: "Ex: -18.5",
+      min: -200,
+      max: 100,
+      step: 0.1,
+    },
+    {
+      name: "observations",
+      label: "Observações:",
+      type: "textarea",
+      placeholder: "Digite observações aqui...",
+      maxLength: 100,
+    },
   ];
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const handleFormSubmit = (data) => {
+    if (!data.room || !data.temperature) return;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (formData.room && formData.temperature) {
-      const now = new Date();
-      setSubmissions((prev) => [
-        ...prev,
-        {
-          ...formData,
-          id: Date.now(),
-          timestamp: now.toLocaleString("pt-BR"),
-        },
-      ]);
-      setFormData({
-        room: "",
-        temperature: "",
-        observations: "",
-      });
-    }
+    const now = new Date();
+    const newSubmission = {
+      ...data,
+      id: Date.now(),
+      timestamp: now.toLocaleString("pt-BR"),
+    };
+
+    setSubmissions((prev) => [...prev, newSubmission]);
+    
+    console.log("Novo registro:", newSubmission);
   };
 
   return (
     <div className="temp-control">
       <h2 className="temp-control__title">Controle de Temperaturas</h2>
-      <form className="temp-control__form" onSubmit={handleSubmit}>
-        <label className="temp-control__form-label" htmlFor="room-select">
-          Selecione a câmara ou sala:
-        </label>
-        <select
-          className="temp-control__form-input"
-          id="room-select"
-          name="room"
-          value={formData.room}
-          onChange={handleChange}
-          required
-        >
-          <option value="" disabled>
-            -- Selecione uma opção --
-          </option>
-          {rooms.map((room) => (
-            <option key={room} value={room}>
-              {room}
-            </option>
-          ))}
-        </select>
-        <label className="temp-control__form-label" htmlFor="temperature-input">
-          Temperatura Atual:
-        </label>
-        <input
-          className="temp-control__form-input"
-          type="number"
-          autoComplete="off"
-          name="temperature"
-          min="-200"
-          max="100"
-          step="0.1"
-          id="temperature-input"
-          value={formData.temperature}
-          onChange={handleChange}
-          required
+      
+      <div className="temp-control__form-wrapper">
+        <BaseForm
+          fields={formFields}
+          onSubmit={handleFormSubmit}
         />
-        <label
-          className="temp-control__form-label"
-          htmlFor="observations-input"
-        >
-          Observações:
-        </label>
-        <textarea
-          className="temp-control__form-input"
-          id="observations-input"
-          name="observations"
-          rows="4"
-          cols="50"
-          maxLength="100"
-          value={formData.observations}
-          onChange={handleChange}
-        />
-        <button className="temp-control__form-button" type="submit">
-          Registrar Temperatura
-        </button>
-      </form>
+      </div>
 
       {submissions.length > 0 && (
         <div className="temp-control__submissions">
