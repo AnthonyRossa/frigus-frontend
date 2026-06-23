@@ -87,7 +87,10 @@ export default function TempControl() {
           onChange={handleChange}
           required
         />
-        <label className="temp-control__form-label" htmlFor="observations-input">
+        <label
+          className="temp-control__form-label"
+          htmlFor="observations-input"
+        >
           Observações:
         </label>
         <textarea
@@ -110,11 +113,19 @@ export default function TempControl() {
           <h3 className="temp-control__submissions-title">Registros:</h3>
           {submissions.map((submission) => (
             <div key={submission.id} className="temp-control__submission-item">
-              <p><strong>Data/Hora:</strong> {submission.timestamp}</p>
-              <p><strong>Câmara:</strong> {submission.room}</p>
-              <p><strong>Temperatura:</strong> {submission.temperature}°C</p>
+              <p>
+                <strong>Sala/Câmara:</strong> {submission.room}
+              </p>
+              <p>
+                <strong>Data/Hora:</strong> {submission.timestamp}
+              </p>
+              <p>
+                <strong>Temperatura:</strong> {submission.temperature}°C
+              </p>
               {submission.observations && (
-                <p><strong>Observações:</strong> {submission.observations}</p>
+                <p>
+                  <strong>Observações:</strong> {submission.observations}
+                </p>
               )}
             </div>
           ))}
