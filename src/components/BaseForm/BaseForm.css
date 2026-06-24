@@ -1,6 +1,18 @@
 .base-form{
     display: flex;
+    margin: 0 10%;
+}
+
+.base-form__title{
+    font-size: 30px;
+    margin: 10px 0;
+}
+
+.base-form__wrapper{
+    display: flex;
     flex-direction: column;
+    margin-right: 50%;
+    position: sticky;
 }
 
 .base-form__container{
@@ -38,4 +50,27 @@
 .base-form__button:hover{
     cursor: pointer;
     background-color: #004a78;
+}
+
+.base-form__submissions{
+    margin: 10px;
+    min-width: 400px;
+    max-width: 500px;
+}
+
+.base-form__submissions-title{
+    margin: 20px 0;
+    font-size: 30px;
+}
+
+.base-form__submissions-container{
+        max-height: 700px;
+    overflow-y: auto;
+}
+
+.base-form__submissions-wrapper{
+    margin-bottom: 20px;
+    border: solid 1px black;
+    border-radius: 8px;
+    padding: 10px;
 }
