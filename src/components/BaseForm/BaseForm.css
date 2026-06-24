@@ -12,6 +12,7 @@
     display: flex;
     flex-direction: column;
     margin-right: 50%;
+    position: sticky;
 }
 
 .base-form__container{
@@ -60,6 +61,11 @@
 .base-form__submissions-title{
     margin: 20px 0;
     font-size: 30px;
+}
+
+.base-form__submissions-container{
+        max-height: 700px;
+    overflow-y: auto;
 }
 
 .base-form__submissions-wrapper{

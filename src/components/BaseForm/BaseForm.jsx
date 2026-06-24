@@ -107,13 +107,15 @@ export default function BaseForm({
       {submissions.length > 0 && renderSubmissionItem && (
         <div className="base-form__submissions">
           <h3 className="base-form__submissions-title">Registros:</h3>
-          {submissions.map((submission) => (
-            <div className="base-form__submissions-wrapper">
-            <div key={submission.id} className="base-form__submission-item">
-              {renderSubmissionItem(submission)}
-            </div>
-            </div>
-          ))}
+          <div className="base-form__submissions-container">
+            {submissions.map((submission) => (
+              <div className="base-form__submissions-wrapper">
+                <div key={submission.id} className="base-form__submission-item">
+                  {renderSubmissionItem(submission)}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
