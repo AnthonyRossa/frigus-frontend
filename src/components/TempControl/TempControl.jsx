@@ -55,39 +55,41 @@ export default function TempControl() {
     console.log("Novo registro:", newSubmission);
   };
 
+  const renderSubmissionItem = (item) => {
+    return (
+      <>
+        <p>
+          <strong>Sala/Câmara:</strong> {item.room}
+        </p>
+        <p>
+          <strong>Data/Hora:</strong> {item.timestamp}
+        </p>
+        <p>
+          <strong>Temperatura:</strong>
+          {Number(item.temperature).toLocaleString("pt-BR", {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1,
+          })}
+          °C
+        </p>
+        {item.observations && (
+          <p>
+            <strong>Observações:</strong> {item.observations}
+          </p>
+        )}
+      </>
+    );
+  };
+
   return (
     <div className="temp-control">
-      <div className="temp-control__title-form-container">
-        <h2 className="temp-control__title">Controle de Temperaturas</h2>
-
-        <div className="temp-control__form-wrapper">
-          <BaseForm fields={formFields} onSubmit={handleFormSubmit} />
-        </div>
-      </div>
-
-      {submissions.length > 0 && (
-        <div className="temp-control__submissions">
-          <h3 className="temp-control__submissions-title">Registros:</h3>
-          {submissions.map((submission) => (
-            <div key={submission.id} className="temp-control__submission-item">
-              <p>
-                <strong>Sala/Câmara:</strong> {submission.room}
-              </p>
-              <p>
-                <strong>Data/Hora:</strong> {submission.timestamp}
-              </p>
-              <p>
-                <strong>Temperatura:</strong> {submission.temperature}°C
-              </p>
-              {submission.observations && (
-                <p>
-                  <strong>Observações:</strong> {submission.observations}
-                </p>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+        <BaseForm
+          fields={formFields}
+          onSubmit={handleFormSubmit}
+          submissions={submissions}
+          renderSubmissionItem={renderSubmissionItem}
+          title="Controle de Temperaturas"
+        />
     </div>
   );
 }
