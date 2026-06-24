@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import './TempControl.css'
+import "./TempControl.css";
 import BaseForm from "../BaseForm/BaseForm";
 
 export default function TempControl() {
-    const [submissions, setSubmissions] = useState([]);
+  const [submissions, setSubmissions] = useState([]);
 
   const formFields = [
     {
@@ -26,7 +26,7 @@ export default function TempControl() {
       label: "Temperatura Atual:",
       type: "number",
       required: true,
-      placeholder: "Ex: -18.5",
+      placeholder: "0.0",
       min: -200,
       max: 100,
       step: 0.1,
@@ -50,20 +50,19 @@ export default function TempControl() {
       timestamp: now.toLocaleString("pt-BR"),
     };
 
-    setSubmissions((prev) => [...prev, newSubmission]);
-    
+    setSubmissions((prev) => [newSubmission, ...prev]);
+
     console.log("Novo registro:", newSubmission);
   };
 
   return (
     <div className="temp-control">
-      <h2 className="temp-control__title">Controle de Temperaturas</h2>
-      
-      <div className="temp-control__form-wrapper">
-        <BaseForm
-          fields={formFields}
-          onSubmit={handleFormSubmit}
-        />
+      <div className="temp-control__title-form-container">
+        <h2 className="temp-control__title">Controle de Temperaturas</h2>
+
+        <div className="temp-control__form-wrapper">
+          <BaseForm fields={formFields} onSubmit={handleFormSubmit} />
+        </div>
       </div>
 
       {submissions.length > 0 && (

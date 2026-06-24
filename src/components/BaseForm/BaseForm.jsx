@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './BaseForm.css'
 
 export default function BaseForm({ fields, onSubmit, initialValues = {} }) {
   if (!fields) return null;
@@ -26,8 +27,7 @@ export default function BaseForm({ fields, onSubmit, initialValues = {} }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="base-form__form">
-      <h3 className="base-form__title">Form</h3>
+    <form onSubmit={handleSubmit} className="base-form">
 
       {fields.map((field) => (
         <div key={field.name} className="base-form__container">
@@ -42,7 +42,7 @@ export default function BaseForm({ fields, onSubmit, initialValues = {} }) {
               value={formData[field.name]}
               onChange={handleChange}
               required={field.required}
-              className="base-form__select"
+              className="base-form__input"
             >
               <option value="" disabled>
                 Select an Option
@@ -58,6 +58,7 @@ export default function BaseForm({ fields, onSubmit, initialValues = {} }) {
               type="number"
               id={field.name}
               name={field.name}
+              step={field.step}
               value={formData[field.name]}
               onChange={handleChange}
               required={field.required}
@@ -74,7 +75,7 @@ export default function BaseForm({ fields, onSubmit, initialValues = {} }) {
               placeholder={field.placeholder || ""}
               maxLength={field.maxLength}
               rows={field.rows || 4}
-              className="base-form__textarea"
+              className="base-form__input"
             />
           ) : (
             <input
